@@ -1,0 +1,143 @@
+<p></p>
+<button class="btn btn-outline-success" data-toggle="modal" data-target="#cinemaModal">Thêm</button>
+<p></p>
+
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">Tên</th>
+            <th scope="col">Cụm rạp</th>
+            <th scope="col">Loại rạp</th>
+            <th scope="col">Kích thước</th>
+            <th scope="col">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center" *ngFor="let cm of cinemas; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{cm.name}}</td>
+            <td>{{cm.idTheaters.name}}</td>
+            <td>{{cm.theaterType}}</td>
+            <td>{{cm.horizontalSize}}x{{cm.verticalSize}}</td>
+            <td>
+                <div class="btn-group">
+                    <!-- <button class="btn btn-outline-primary" data-toggle="modal"  attr.data-target="#updateCinema{{i}}">Cập
+                        nhật</button> -->
+                    <button (click)="DeleteCinema(cm._id)" class="btn btn-outline-danger">Xoá</button>
+                </div>
+            </td>
+
+        <!-- Cap nhat -->
+<!-- <div class="modal fade" id="updateCinema{{i}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">CẬP NHẬT RẠP</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form [formGroup]="formUpdateCinema" (ngSubmit)="UpdateCinema(cm._id)">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="float-left">Tên</label>
+                    <input type="text" class="form-control" formControlName="name" value="{{cm.name}}" required>
+                </div>
+                <div class="form-group">
+                    <label class="float-left">Cụm rạp</label>
+                    <select class="custom-select" formControlName="idTheaters">
+                        <option *ngFor="let tt of theaters" value="{{tt._id}}" [attr.selected]="cm.idTheaters  === tt._id ? selected: ''">{{tt.name}}</option>
+                      </select>
+                </div>
+                <div class="form-group">
+                    <label class="float-left">Loại rạp</label>
+                    <select class="custom-select" formControlName="theaterType">
+                        <option  [attr.selected]="cm.theaterType == '2D' ? selected : ''" value="2D">2D</option>
+                        <option  [attr.selected]="cm.theaterType == '3D' ? selected : ''" value="3D">3D</option>
+                        <option  [attr.selected]="cm.theaterType == '4D' ? selected : ''" value="4D">4D</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="float-left">Kích thước ngang</label>
+                    <input type="number" class="form-control" formControlName="horizontalSize" value="{{cm.horizontalSize}}" required>
+                </div>
+                <div class="form-group">
+                    <label class="float-left">Kích thước dọc</label>
+                    <input type="number" class="form-control" formControlName="verticalSize" value="{{cm.verticalSize}}" required>
+                </div>
+                <div class="form-group text-center">
+                    <div class="alert alert-success" *ngIf="message === 1">Cập nhật thành công</div>
+                    <div class="alert alert-danger" *ngIf="message === 0">Cập nhật thất bại</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+                <button type="submit" [disabled]="formUpdateCinema.invalid" class="btn btn-outline-primary">Hoàn
+                    tất</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div> -->
+
+        </tr>
+    </tbody>
+</table>
+<p></p>
+
+
+<!-- Add -->
+<div class="modal fade" id="cinemaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">THÊM RẠP</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="formAddCinema" (ngSubmit)="AddCinema()">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input type="text" class="form-control" formControlName="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Cụm rạp</label>
+                        <select class="custom-select" formControlName="idTheaters">
+                            <option *ngFor="let tt of theaters" value="{{tt._id}}">{{tt.name}}</option>
+                          </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Loại rạp</label>
+                        <select class="custom-select" formControlName="theaterType">
+                            <option value="2D">2D</option>
+                            <option value="3D">3D</option>
+                            <option value="4D">4D</option>
+                          </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Kích thước ngang</label>
+                        <input type="number" class="form-control" formControlName="horizontalSize" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kích thước dọc</label>
+                        <input type="number" class="form-control" formControlName="verticalSize" required>
+                    </div>
+                    <div class="form-group text-center">
+                        <div class="alert alert-success" *ngIf="message === 1">Thêm thành công</div>
+                        <div class="alert alert-danger" *ngIf="message === 0">Thêm thất bại</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" [disabled]="formAddCinema.invalid" class="btn btn-outline-primary">Hoàn
+                        tất</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

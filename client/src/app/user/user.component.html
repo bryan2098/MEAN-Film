@@ -1,0 +1,48 @@
+<p></p>
+<p></p>
+
+<table class="table">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">#</th>
+      <th scope="col">Tên</th>
+      <th scope="col">Avatar</th>
+      <th scope="col">Email</th>
+      <th scope="col">SDT</th>
+      <th scope="col">Vai trò</th>
+      <th scope="col">Hành động</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="text-center" *ngFor="let us of users; index as i">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{us.displayName}}</td>
+      <td><img src="http://noithatquangtri.com/files/tin/15/jpg/le-thi-thu-hien.jpg" alt="" style="height: 150px;"></td>
+      <td>{{us.email}}</td>
+      <td>{{us.phone}}</td>
+      <td>
+        <form [formGroup]="formUpdateLevel" (ngSubmit)="UpdateRole(us._id)">
+          <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="role" id="gridRadios1" value="1" [checked]="us.role === '1'">
+                <label class="form-check-label" for="gridRadios1">Us</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="role" id="gridRadios2" value="2" [checked]="us.role === '2'">
+                <label class="form-check-label" for="gridRadios2">Ad</label>
+              </div>
+            </div>
+            <p></p>
+            <button type="submit" class="btn btn-outline-primary">Cập nhật</button>
+          </form>
+      </td>
+      <td>
+        <div class="btn-group">
+         
+          <button (click)="DeleteUser(us._id)" class="btn btn-outline-danger">Xoá</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p></p>

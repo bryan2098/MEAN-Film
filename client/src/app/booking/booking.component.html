@@ -1,0 +1,90 @@
+<p></p>
+<p></p>
+
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">Người đặt</th>
+            <th scope="col">Rạp</th>
+            <th scope="col">Phim</th>
+            <th scope="col">Ngày chiếu</th>
+            <th scope="col">Tổng tiền</th>
+            <th scope="col">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center" *ngFor="let item of bookings; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{item.idUser.displayName}}</td>
+            <td>{{item.idFrequency.idCinema.name}}</td>
+            <td>{{item.idFrequency.idFilm.name}}</td>
+            <td>{{item.dateFilm}}</td>
+            <td class="text-danger"><b>{{item.totalPrice}}</b></td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-outline-success" data-toggle="modal"
+                        attr.data-target="#detailBooking{{i}}">Chi tiết</button>
+                    <button class="btn btn-outline-danger" (click)="DeleteBooking(item._id)">Xoá</button>
+                </div>
+            </td>
+
+            <div class="modal fade" id="detailBooking{{i}}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">CHI TIẾT ĐẶT CHỖ</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="float-left">Mã đặt</label>
+                                    <input type="text" class="form-control" value="{{item._id}}"
+                                        readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="float-left">Người đặt</label>
+                                    <input type="text" class="form-control" value="{{item.idUser.displayName}}"
+                                        readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="float-left">Phim</label>
+                                    <input type="text" class="form-control" value="{{item.idFrequency.idFilm.name}}"
+                                        readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="float-left">Rạp</label>
+                                    <input type="text" class="form-control" value="{{item.idFrequency.idCinema.name}}"
+                                        readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="float-left">Ngày chiếu</label>
+                                    <input type="text" class="form-control" value="{{item.dateFilm}}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="float-left">Thời gian đặt</label>
+                                    <input type="text" class="form-control" value="{{item.bookingTime}}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="float-left">Tổng tiền</label>
+                                    <input type="text" class="form-control" value="{{item.totalPrice}}" readonly>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary"
+                                    data-dismiss="modal">Đóng</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </tr>
+    </tbody>
+</table>
+<p></p>

@@ -1,0 +1,88 @@
+&nbsp;
+<p></p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <h2 class="text-center">Thông tin người dùng</h2>
+      <form [formGroup]="UpdateInfoForm" (ngSubmit)="UpdateInfo()">
+        <div class="form-group">
+          <label>Họ tên</label>
+          <input type="text" class="form-control" formControlName="displayName" value="{{user.displayName}}" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" value="{{user.email}}" readonly>
+        </div>
+        <div class="form-group">
+          <label>Số điện thoại</label>
+          <input type="text" class="form-control" formControlName="phone" value="{{user.phone}}" required>
+        </div>
+        <div class="form-group text-center text-success" *ngIf="message === 1"><b>Cập nhật thành công</b>
+        </div>
+        <div class="form-group text-center text-danger" *ngIf="message === 0"><b>Cập nhật thất bại</b></div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-outline-success" [disabled]="UpdateInfoForm.invalid">Hoàn tất</button>
+          &nbsp;
+          <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#changPasswordModal">Đổi
+            mật khẩu</button>&nbsp;
+          <a routerLink="/" class="btn btn-outline-secondary">Trở lại</a> &nbsp;
+        </div>
+      </form>
+    </div>
+
+    <div class="col-4 ">
+      <div class="form-group">
+        <div>
+          <img src="http://localhost:3000/images/{{user.avatar}}" alt=""
+            style="height: 200px; width: 200px;">
+        </div>
+      </div>
+      <form [formGroup]="ChangeAvatarForm" (ngSubmit)="changeAvatar(user._id)">
+        <div class="form-group">
+          <label>Thay đổi ảnh</label>
+          <input type="file" class="form-control" formControlName="images" (change)="selectFile($event)">
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-outline-success">Hoàn tất</button> &nbsp;
+        </div>
+    </form> 
+    </div>
+  </div>
+</div>
+&nbsp;
+<p></p>
+
+<div class="modal fade" id="changPasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ĐỔI MẬT KHẨU</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="ChangePasswordForm" (ngSubmit)="ChangePassword()">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Mật khẩu mới</label>
+            <input type="password" class="form-control" formControlName="password" required>
+          </div>
+          <div class="form-group">
+            <label>Xác nhận mật khẩu mới</label>
+            <input type="password" class="form-control" formControlName="password_cof" required>
+          </div>
+          <div class="form-group text-center">
+            <div class="alert alert-success" *ngIf="messageChangePassword === 1">Đổi mật khẩu thành công</div>
+            <div class="alert alert-danger" *ngIf="messageChangePassword === 0">Đổi mật khẩu thất bại</div>
+            <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+          <button type="submit" class="btn btn-outline-primary" [disabled]="ChangePasswordForm.invalid">Hoàn tất</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

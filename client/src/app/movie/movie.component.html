@@ -1,0 +1,105 @@
+<p></p>
+<button class="btn btn-outline-success" data-toggle="modal" data-target="#movieModal">Thêm</button>
+<p></p>
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">Tên</th>
+            <th scope="col">Poster</th>
+            <th scope="col">Thời lượng</th>
+            <th scope="col">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center" *ngFor="let mv of movies;  index as i">
+            <th scope="row">{{i + 1 }}</th>
+            <td>{{mv.name }}</td>
+            <td><img src="http://localhost:3000/images/{{mv.poster}}" alt=""
+                    style="height: 150px;"></td>
+            <td>{{mv.movieTime}} phút</td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-outline-primary" data-toggle="modal"
+                        attr.data-target="#updateMoviePoster{{i}}">Cập nhật Poster</button>
+                    <button class="btn btn-outline-danger" (click)="DeleteMovie(mv._id)">Xoá</button>
+                </div>
+            </td>
+
+
+            <!-- Update -->
+            <div class="modal fade" id="updateMoviePoster{{i}}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">CẬP NHẬT POSTER</h5>
+
+                        </div>
+                        &nbsp;
+                        <div>
+                            <img src="http://localhost:3000/images/{{mv.poster}}" alt=""
+                                style=" width:300px;">
+                        </div>
+                        &nbsp;
+                        <form [formGroup]="ChangePoster" (ngSubmit)="changePoster(mv._id)">
+                            <input type="file" formControlName="images" (change)="selectFile($event)">
+                            <button class="btn btn-outline-primary">Hoàn tất</button>
+                        </form>
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+
+
+        </tr>
+    </tbody>
+</table>
+<p></p>
+
+
+<!-- Add -->
+<div class="modal fade" id="movieModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">THÊM PHIM</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="formAddMovie" (ngSubmit)="AddMovie()">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input type="text" class="form-control" formControlName="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Thời lượng</label>
+                        <input type="number" class="form-control" formControlName="movieTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nội dung</label>
+                        <input type="text" class="form-control" formControlName="content" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày công chiếu</label>
+                        <input type="date" class="form-control" formControlName="premiereDate" required>
+                    </div>
+
+
+                    <div class="form-group text-center text-success" *ngIf="message === 1"><b>Thêm thành công</b>
+                    </div>
+                    <div class="form-group text-center text-danger" *ngIf="message === 0"><b>Thêm thất bại</b></div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" [disabled]="formAddMovie.invalid" class="btn btn-outline-primary">Hoàn
+                        tất</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

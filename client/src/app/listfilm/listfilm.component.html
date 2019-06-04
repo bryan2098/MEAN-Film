@@ -1,0 +1,22 @@
+&nbsp;
+<p></p>
+<h2 class="text-center">DANH SÁCH PHIM</h2>
+&nbsp;
+<p></p>
+<div class="row mb-2">
+    <div class="col-md-6" *ngFor="let item of movies">
+        <div class="card flex-md-row mb-4 box-shadow h-md-250">
+            <div class="card-body d-flex flex-column align-items-start">
+                <strong class="d-inline-block mb-2 text-primary">Phim</strong>
+                <h3 class="mb-0">
+                    <a class="text-dark">{{item.name}}</a>
+                </h3>
+                <div class="mb-1 text-muted">{{item.premiereDate}}</div>
+                <small class="text-success">Thời lượng: <b>{{item.movieTime}} phút</b></small>
+                &nbsp;
+                    <p class="card-text mb-auto">{{item.content}}</p>
+            </div>
+            <img class="card-img-right flex-auto d-none d-md-block" src="http://localhost:3000/images/{{item.poster}}"  alt="Card image cap">
+        </div>
+    </div>
+</div>

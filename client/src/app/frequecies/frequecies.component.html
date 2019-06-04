@@ -1,0 +1,84 @@
+<p></p>
+<button class="btn btn-outline-success" data-toggle="modal" data-target="#theaterModal">Thêm</button>
+<p></p>
+
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">Rạp</th>
+            <th scope="col">Phim</th>
+            <th scope="col">Bắt đầu - Kết thúc</th>
+            <th scope="col">Giá vé</th>
+            <th scope="col">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center" *ngFor="let freq of frequencies; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{freq.idCinema.name}}</td>
+            <td>{{freq.idFilm.name}}</td>
+            <td>{{freq.timeStart}} - {{freq.timeFinish}}</td>
+            <td>{{freq.ticketPrice}} đ</td>
+            <td>
+                <div class="btn-group">
+                    <button (click)="DeleteFreq(freq._id)" class="btn btn-outline-danger">Xoá</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p></p>
+
+
+<!-- Add -->
+<div class="modal fade" id="theaterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">THÊM SUẤT CHIẾU</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="formAddFreq" (ngSubmit)="AddFreq()">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Rạp</label>
+                        <select class="custom-select" formControlName="idCinema">
+                            <option *ngFor="let cm of cinemas" value="{{cm._id}}" >{{cm.name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Phim</label>
+                        <select class="custom-select" formControlName="idFilm">
+                            <option *ngFor="let mv of movies" value="{{mv._id}}">{{mv.name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Bắt đầu</label>
+                        <input type="time" class="form-control" formControlName="timeStart" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kết thúc</label>
+                        <input type="time" class="form-control" formControlName="timeFinish" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Giá vé</label>
+                        <input type="text" class="form-control" formControlName="ticketPrice" required>
+                    </div>
+                    <div class="form-group text-center">
+                        <div class="alert alert-success" *ngIf="message === 1">Thêm thành công</div>
+                        <div class="alert alert-danger" *ngIf="message === 0">Thêm thất bại</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" [disabled]="formAddFreq.invalid" class="btn btn-outline-primary">Hoàn
+                        tất</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<p></p>
+<button class="btn btn-outline-success" data-toggle="modal" data-target="#theaterModal">Thêm</button>
+<p></p>
+
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">Tên</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center" *ngFor="let tt of theaters;  index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{tt.name}}</td>
+            <td>{{tt.address}}</td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-outline-primary" data-toggle="modal"  attr.data-target="#updateTheaterModal{{i}}">Cập
+                        nhật</button>
+                    <button (click)="DeleteTheater(tt._id)" class="btn btn-outline-danger">Xoá</button>
+                </div>
+            </td>
+
+            <div class="modal fade" id="updateTheaterModal{{i}}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">CẬP NHẬT CỤM RẠP</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form [formGroup]="formUpdateTheater" (ngSubmit)="UpdateTheater(tt._id)">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="float-left">Tên</label>
+                                    <input type="text" class="form-control" formControlName="name" value="{{tt.name}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="float-left">Địa chỉ</label>
+                                    <input type="text" class="form-control" formControlName="address" value="{{tt.address}}" required>
+                                </div>
+                                <div class="form-group text-center">
+                                    <div class="alert alert-success" *ngIf="message === 1">Cập nhật thành công</div>
+                                    <div class="alert alert-danger" *ngIf="message === 0">Cập nhật thất bại</div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary"
+                                    data-dismiss="modal">Đóng</button>
+                                <button type="submit" [disabled]="formUpdateTheater.invalid"
+                                    class="btn btn-outline-primary">Hoàn tất</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </tr>
+    </tbody>
+</table>
+<p></p>
+
+
+<!-- Add -->
+<div class="modal fade" id="theaterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">THÊM CỤM RẠP</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="formAddTheater" (ngSubmit)="AddTheater()">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input type="text" class="form-control" formControlName="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Địa chỉ</label>
+                        <input type="text" class="form-control" formControlName="address" required>
+                    </div>
+                    <div class="form-group text-center">
+                        <div class="alert alert-success" *ngIf="message === 1">Thêm thành công</div>
+                        <div class="alert alert-danger" *ngIf="message === 0">Thêm thất bại</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" [disabled]="formAddTheater.invalid" class="btn btn-outline-primary">Hoàn
+                        tất</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
