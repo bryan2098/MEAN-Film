@@ -1,3 +1,4 @@
+<div *ngIf="user.role === '2'">
 <p></p>
 <p></p>
 
@@ -88,3 +89,8 @@
     </tbody>
 </table>
 <p></p>
+</div>
+
+<div *ngIf="user.role === '1'">
+    <p class="text-center alert alert-danger">BẠN KHÔNG CÓ QUYỀN TRUY CẬP</p>
+  </div>

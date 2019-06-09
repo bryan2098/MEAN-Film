@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../type';
+import { Movie, User } from '../type';
 import { Store } from '@ngrx/store';
 import { AdminService } from '../service/admin.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,7 +15,12 @@ export class MovieComponent implements OnInit {
   movies: Movie[];
   avt: File;
   message: string;
-  constructor( private store: Store<Movie>, private adminService: AdminService, private fb: FormBuilder) {
+  user: User;
+  constructor( private store: Store<Movie>, private adminService: AdminService, private fb: FormBuilder, private storeUser: Store<User>) {
+    this.storeUser.select('userInfo').subscribe(u =>{
+      this.user = u;
+    });
+    
     this.formAddMovie = this.fb.group({
       name: ['', Validators.required],
       movieTime: [0, Validators.required],

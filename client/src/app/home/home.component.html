@@ -44,36 +44,73 @@
     </div>
     &nbsp;
     <div class="row mb-2">
-        <div class="col-md-6">
+        <div class="col-md-6" *ngFor="let item of frequencies; index as i">
             <div class="card flex-md-row mb-4 box-shadow h-md-250">
                 <div class="card-body d-flex flex-column align-items-start">
-                    <strong class="d-inline-block mb-2 text-primary">World</strong>
+                    <strong class="d-inline-block mb-2 text-primary">Suất chiếu</strong>
                     <h3 class="mb-0">
-                        <a class="text-dark" href="#">Featured post</a>
+                        <a class="text-dark">{{item.idFilm.name}}</a>
                     </h3>
-                    <div class="mb-1 text-muted">Nov 12</div>
-                    <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to
-                        additional content.</p>
-                    <a href="#">Continue reading</a>
+                    <small class="text-success"><b>{{item.timeStart}} - {{item.timeFinish}}</b></small>
+                    &nbsp;
+                    <div>Rạp: {{item.idCinema.name}}</div>
+                    <div>Loại rạp: <b class="text-danger">{{item.idCinema.theaterType}}</b></div>
+                    <div class="text-success">Giá vé: <b>{{item.ticketPrice}} VNĐ</b></div>
                 </div>
-                <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb"
-                    alt="Card image cap">
+                <button class="btn btn-outline-danger" data-toggle="modal" attr.data-target="#bookingModal{{i}}">Đặt
+                    vé</button>
+                <img class="card-img-right flex-auto d-none d-md-block"
+                    src="http://localhost:3000/images/{{item.idFilm.poster}}" alt="Card image cap">
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card flex-md-row mb-4 box-shadow h-md-250">
-                <div class="card-body d-flex flex-column align-items-start">
-                    <strong class="d-inline-block mb-2 text-success">Design</strong>
-                    <h3 class="mb-0">
-                        <a class="text-dark" href="#">Post title</a>
-                    </h3>
-                    <div class="mb-1 text-muted">Nov 11</div>
-                    <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to
-                        additional content.</p>
-                    <a href="#">Continue reading</a>
+    
+    
+            <!-- Add -->
+            <div class="modal fade" id="bookingModal{{i}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">CHỌN NGÀY CHIẾU PHIM</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form [formGroup]="BookingForm" (ngSubmit)="AddBooking(item._id)">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Phim</label>
+                                    <input type="text" class="form-control" readonly value="{{item.idFilm.name}}">
+                                </div>
+    
+                                <div class="form-group">
+                                    <label>Thời gian</label>
+                                    <input type="text" class="form-control" readonly
+                                        value="{{item.timeStart}} - {{item.timeFinish}}">
+                                </div>
+    
+                                <div class="form-group">
+                                    <label>Loại rạp</label>
+                                    <input type="text" class="form-control" readonly value="{{item.idCinema.theaterType}}">
+                                </div>
+    
+                                <div class="form-group">
+                                    <label>Giá vé</label>
+                                    <input type="text" class="form-control" readonly value="{{item.ticketPrice}} VNĐ">
+                                </div>
+                                <div class="form-group">
+                                    <label>Chọn ngày</label>
+                                    <input type="date" class="form-control" formControlName="dateFilm" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+                                <button type="submit" [disabled]="BookingForm.invalid" class="btn btn-outline-primary">Hoàn tất</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb"
-                    alt="Card image cap">
             </div>
+    
+    
         </div>
     </div>

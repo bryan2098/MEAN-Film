@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Loading, Movie , ListMovie} from '../type';
+import { Loading, Movie , Booking} from '../type';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +12,44 @@ export class UserService {
   constructor(private http: HttpClient, private router: Router, private store: Store<Loading>) {
   }
 
+  // danh sach da dat
+  async listUserTicket(_id: string)
+  {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.store.dispatch({ type: 'LOADED' });
+      this.router.navigateByUrl('/signin');
+    }
+    const headers = new HttpHeaders({ token });
+    return this.http.get(`${this.URL}user/listUserTicket/${_id}`, { headers })
+    .toPromise()
+    .then((res:any) => {
+      return res;
+    })
+    .catch(err => err)
+  }
+
+
+  //  them dat cho
+  async addBooking(idFrequency: string, dateFilm: string): Promise<Booking[]>
+  {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.store.dispatch({ type: 'LOADED' });
+      this.router.navigateByUrl('/signin');
+    }
+    const headers = new HttpHeaders({ token });
+    return this.http.post(`${this.URL}booking/addBooking/${idFrequency}`, {idFrequency, dateFilm}, {headers})
+    .toPromise()
+    .then((res: any) => {
+      localStorage.setItem('bookingid', res.data._id);
+      // console.log(res);
+      return res;
+    })
+    .catch(err => err)
+  }
+
+  
 
   // dang ky
   async signUp(email: String, name: String, password: String, phone: String): Promise<any> {

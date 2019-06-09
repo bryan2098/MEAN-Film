@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Booking } from '../type';
+import { Booking, User } from '../type';
 import { Store } from '@ngrx/store';
 import { AdminService } from '../service/admin.service';
+
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -9,15 +10,20 @@ import { AdminService } from '../service/admin.service';
 })
 export class BookingComponent implements OnInit {
 
-  constructor(private store: Store<Booking>, private adminService: AdminService) { }
+  constructor(private store: Store<Booking>, private adminService: AdminService, private storeUser: Store<User>) { }
   bookings: Booking[];
-
+  user: User;
   ngOnInit() {
+    this.storeUser.select('userInfo').subscribe(u => {
+      this.user = u;
+    });
+    
     this.list();
     this.store.select('adminBookingReducer')
       .subscribe(l => {
         this.bookings = l;
       })
+
   }
 
   //  danh sach
@@ -29,12 +35,12 @@ export class BookingComponent implements OnInit {
       .catch(err => console.error(err));
   }
 
-    // xoa
-    DeleteBooking(_id: string) {
-      this.adminService.deleteBooking(_id)
-        .then(() => {
-          this.list();
-        })
-        .catch(err => err)
-    }
+  // xoa
+  DeleteBooking(_id: string) {
+    this.adminService.deleteBooking(_id)
+      .then(() => {
+        this.list();
+      })
+      .catch(err => err)
+  }
 }

@@ -5,6 +5,9 @@ const { BookingModel } = require("../models/BookingModel");
 const { FrequencyModel } = require("../models/FrequencyModel");
 
 
+
+
+
 // chi tiet admin
 router.get("/detailTicket/:_id", authenticate, (req, res) => {
     const {_id} = req.params;

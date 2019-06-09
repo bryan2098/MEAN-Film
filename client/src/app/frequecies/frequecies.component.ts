@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cinema, Movie, Frequency } from '../type';
+import { Cinema, Movie, Frequency, User } from '../type';
 import { Store } from '@ngrx/store';
 import { AdminService } from '../service/admin.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,7 +15,11 @@ export class FrequeciesComponent implements OnInit {
   frequencies: Frequency[];
   formAddFreq: FormGroup;
   message: string;
-  constructor(private store: Store<Cinema>, private adminService: AdminService, private fb: FormBuilder) { 
+  user: User;
+  constructor(private store: Store<Cinema>, private adminService: AdminService, private fb: FormBuilder,  private storeUser: Store<User>) { 
+    this.storeUser.select('userInfo').subscribe(u =>{
+      this.user = u;
+    });
     this.formAddFreq = this.fb.group({
       idCinema: ['', Validators.required],
       idFilm: ['', Validators.required],

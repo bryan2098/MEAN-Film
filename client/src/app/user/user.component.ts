@@ -13,6 +13,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class UserComponent implements OnInit {
 
   users: User[];
+  user: User;
   formUpdateLevel: FormGroup;
   message: string;
   constructor(private store: Store<User>, private adminService: AdminService, private fb: FormBuilder) {
@@ -22,6 +23,9 @@ export class UserComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.store.select('userInfo').subscribe(u =>{
+      this.user = u;
+    });
     this.list();
     this.store.select('adminUserReducer')
       .subscribe(l => {

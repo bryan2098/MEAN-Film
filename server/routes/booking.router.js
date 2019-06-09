@@ -68,9 +68,10 @@ router.get("/", authenticate, (req, res) => {
 })
 
 // add 
-router.post("/addBooking", authenticate, (req, res)=>{
+router.post("/addBooking/:idFrequency", authenticate, (req, res)=>{
 
-    const {idFrequency, dateFilm} = req.body;
+    const {dateFilm} = req.body;
+    const {idFrequency} = req.params;
     const idUser = req.userId;
     const bookingTime = moment().format("LLLL");
 

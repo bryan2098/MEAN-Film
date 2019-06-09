@@ -8,6 +8,29 @@ const {hash} = require("../lib/bcrypt");
 
 
 
+// danh sach ticket nguoi dung
+router.get("/listUserTicket/:_id", authenticate, (req, res) => {
+    Ticket.listUserTicket(req.params._id)
+    .then(ticket => {
+        res.send({
+            code: 1,
+            data: ticket,
+            message: null
+        })
+    })
+    .catch(err => {
+        res.send({
+            code: 0,
+            data: "",
+            message: err.message
+        })
+    })
+})
+
+
+
+
+
 //update user info
 router.put("/updateInfoUser", authenticate, (req, res) => {
 
@@ -138,29 +161,6 @@ router.get("/detailTicket/:_id", authenticate, (req, res) => {
         })
     })
 })
-
-
-
-// danh sach ticket nguoi dung
-router.get("/listUserTicket/:_id", authenticate, (req, res) => {
-    const {_id} = req.params;
-    Ticket.listUserTicket(_id)
-    .then(ticket => {
-        res.send({
-            code: 1,
-            data: ticket,
-            message: null
-        })
-    })
-    .catch(err => {
-        res.send({
-            code: 0,
-            data: "",
-            message: err
-        })
-    })
-})
-
 
 
 

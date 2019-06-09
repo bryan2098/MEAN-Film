@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Theater } from '../type';
+import { Theater, User } from '../type';
 import { Store } from '@ngrx/store';
 import { AdminService } from '../service/admin.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -12,10 +12,13 @@ export class TheaterComponent implements OnInit {
   formAddTheater: FormGroup;
   theaters: Theater[];
   message: String;
-
+  user: User;
   formUpdateTheater: FormGroup;
 
-  constructor(private store: Store<Theater>, private adminService: AdminService, private fb: FormBuilder) {
+  constructor(private store: Store<Theater>, private adminService: AdminService, private fb: FormBuilder,  private storeUser: Store<User>) {
+    this.storeUser.select('userInfo').subscribe(u =>{
+      this.user = u;
+    });
     this.formAddTheater = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required]

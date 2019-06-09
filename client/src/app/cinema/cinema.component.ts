@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cinema, Theater } from '../type';
+import { Cinema, Theater, User } from '../type';
 import { Store } from '@ngrx/store';
 import { AdminService } from '../service/admin.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,7 +15,12 @@ export class CinemaComponent implements OnInit {
   message: String;
   cinemas: Cinema[];
   theaters: Theater[];
-  constructor(private store: Store<Cinema>, private adminService: AdminService, private fb: FormBuilder) { 
+  user: User;
+  constructor(private store: Store<Cinema>, private adminService: AdminService, private fb: FormBuilder, private storeUser: Store<User>) { 
+    this.storeUser.select('userInfo').subscribe(u =>{
+      this.user = u;
+    });
+
     this.formAddCinema = this.fb.group({
       name: ['', Validators.required],
       idTheaters: [0, Validators.required],

@@ -1,3 +1,4 @@
+<div *ngIf="user.role === '2'">
 <p></p>
 <ul class="list-group">
   <li class="list-group-item" routerLink="/adminUSer" routerLinkActive="active">Quản lý người dùng</li>
@@ -9,3 +10,8 @@
   <li class="list-group-item" routerLink="/adminTicket" routerLinkActive="active">Quản lý vé</li>
 </ul>
 <p></p>
+</div>
+
+<div *ngIf="user.role === '1'">
+  <p class="text-center alert alert-danger">BẠN KHÔNG CÓ QUYỀN TRUY CẬP</p>
+</div>

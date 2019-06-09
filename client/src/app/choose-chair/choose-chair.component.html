@@ -1,0 +1,26 @@
+<p></p>
+&nbsp;
+<div class="container" style="width: 480px;">
+  <div></div>
+  &nbsp;
+  <div style="background: #5b7759; padding: 5px; margin-bottom: 35px; color: whitesmoke; width: 420px" class="text-center" >
+    SCREEN</div>
+
+  <form [formGroup]="formAddTicket" (ngSubmit)="AddTicket()">
+
+    <div class="btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-outline-secondary" formArrayName="seatCode" style="padding: 4px; margin: 2px; width: 38px;"
+       *ngFor="let item of seatCode;  index as i">
+        <input type="checkbox" [formControlName]="item" >{{item}}
+      </label>
+    </div>
+
+    <div class="text-center" style="margin-top: 40px;">
+      <a routerLink="/" class="btn btn-outline-secondary">Hủy</a> &nbsp;
+      <button type="submit" class="btn btn-outline-primary">Đặt vé</button>
+    </div>
+  </form>
+
+</div>
+<p></p>
+&nbsp;

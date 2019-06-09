@@ -30,6 +30,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { ListtheaterComponent } from './listtheater/listtheater.component';
 import { ListfreqComponent } from './listfreq/listfreq.component';
 import { ListfilmComponent } from './listfilm/listfilm.component';
+import { ChooseChairComponent } from './choose-chair/choose-chair.component';
+import { HistoryComponent } from './history/history.component';
 
 
 const routes = [
@@ -48,6 +50,8 @@ const routes = [
   {path: 'listtheater', component: ListtheaterComponent , canActivate: [MustBeUserGuard]},
   {path: 'listfreq', component: ListfreqComponent , canActivate: [MustBeUserGuard]},
   {path: 'listfilm', component: ListfilmComponent , canActivate: [MustBeUserGuard]},
+  {path: 'choosechair', component: ChooseChairComponent , canActivate: [MustBeUserGuard]},
+  {path: 'history', component: HistoryComponent , canActivate: [MustBeUserGuard]},
   {path: '**', component: NotfoundComponent}
 ];
 
@@ -72,6 +76,8 @@ const routes = [
     ListtheaterComponent,
     ListfreqComponent,
     ListfilmComponent,
+    ChooseChairComponent,
+    HistoryComponent,
     
   ],
   imports: [

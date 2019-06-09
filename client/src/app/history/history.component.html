@@ -1,0 +1,94 @@
+<div *ngIf="tickets">
+    <table class="table">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">#</th>
+                <th scope="col">Người đặt</th>
+                <th scope="col">Phim</th>
+                <th scope="col">Mã ghế</th>
+                <th scope="col">Loại rạp</th>
+                <th scope="col">Giá </th>
+                <th scope="col">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-center" *ngFor="let item of tickets; index as i">
+                <th scope="row">{{i + 1}}</th>
+                <td>{{item.idBooking.idUser.displayName}}</td>
+                <td>{{item.idBooking.idFrequency.idFilm.name}}</td>
+                <td>{{item.seatCode}}</td>
+                <td>{{item.idBooking.idFrequency.idCinema.theaterType}}</td>
+                <td class="text-danger"><b>{{item.price}} đ</b></td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-success" data-toggle="modal"
+                            attr.data-target="#detailTicket{{i}}">Chi tiết</button>
+                    </div>
+                </td>
+      
+                <div class="modal fade" id="detailTicket{{i}}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">CHI TIẾT VÉ</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label class="float-left">Mã vé</label>
+                                        <input type="text" class="form-control" value="{{item._id}}"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="float-left">Người đặt</label>
+                                        <input type="text" class="form-control" value="{{item.idBooking.idUser.displayName}}"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="float-left">Phim</label>
+                                        <input type="text" class="form-control" value="{{item.idBooking.idFrequency.idFilm.name}}"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="float-left">Ghế</label>
+                                        <input type="text" class="form-control" value="{{item.seatCode}}"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="float-left">Loại rạp</label>
+                                        <input type="text" class="form-control" value="{{item.idBooking.idFrequency.idCinema.theaterType}}"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="float-left">Thời gian đặt</label>
+                                        <input type="text" class="form-control" value="{{item.idBooking.bookingTime}}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="float-left">Giá vé</label>
+                                        <input type="text" class="form-control" value="{{item.price}} đ" readonly>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        data-dismiss="modal">Đóng</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+      
+      
+            </tr>
+        </tbody>
+      </table>
+</div>
+<div *ngIf="!tickets">
+    <div class="alert alert-danger text-center">
+        Vui lòng đặt chỗ ngồi
+    </div>
+</div>
+<p></p>
