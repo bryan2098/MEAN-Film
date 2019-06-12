@@ -11,6 +11,7 @@ import { UserService } from '../service/user.service';
 export class HistoryComponent implements OnInit {
   tickets: Ticket[];
   user: User;
+
   constructor(private store: Store<Ticket>, private userService: UserService, private storeUser: Store<User>) { 
     this.storeUser.select('userInfo').subscribe(u =>{
       this.user = u;

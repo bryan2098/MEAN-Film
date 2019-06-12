@@ -10,8 +10,8 @@
 
     <div class="btn-group-toggle" data-toggle="buttons">
       <label class="btn btn-outline-secondary" formArrayName="seatCode" style="padding: 4px; margin: 2px; width: 38px;"
-       *ngFor="let item of seatCode;  index as i">
-        <input type="checkbox" [formControlName]="item" >{{item}}
+       *ngFor="let item of counter(10, 75);  index as i">
+        <input type="checkbox">{{item}}
       </label>
     </div>
 

@@ -14,7 +14,7 @@ export class TheaterComponent implements OnInit {
   message: String;
   user: User;
   formUpdateTheater: FormGroup;
-
+  loading: boolean;
   constructor(private store: Store<Theater>, private adminService: AdminService, private fb: FormBuilder,  private storeUser: Store<User>) {
     this.storeUser.select('userInfo').subscribe(u =>{
       this.user = u;
@@ -69,9 +69,13 @@ export class TheaterComponent implements OnInit {
       .then((res: any) => {
         this.message = res.code;        
         this.list();
-        location.reload();
+        
+        setTimeout(() => {
+          location.reload();
+        }, 500)
       })
       .catch(err => err)
+      
   }
 
 

@@ -11,6 +11,7 @@ import { UserService } from '../service/user.service';
 export class HeaderComponent implements OnInit {
   user: User;
   token: String = localStorage.getItem('token');
+
   constructor(private store: Store<User>, private userService: UserService) {
     this.store.select('userInfo').subscribe(u =>{
       this.user = u;
@@ -21,8 +22,9 @@ export class HeaderComponent implements OnInit {
   }
 
   Logout() {
+    
     this.userService.logOut();
-    location.reload();
+      location.reload();
   }
 
 }
