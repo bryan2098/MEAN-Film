@@ -10,39 +10,44 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl, FormControl
 })
 export class ChooseChairComponent implements OnInit {
   formAddTicket: FormGroup;
+  seatCode: FormArray;
   bookingid = localStorage.getItem('bookingid');
-  
-  constructor(private store: Store<Ticket>, private userService: UserService, private fb: FormBuilder) {   
+
+  constructor(private store: Store<Ticket>, private userService: UserService, private fb: FormBuilder) {
     this.formAddTicket = this.fb.group({
-      seatCode: new FormArray([]),
-    })
-    
+      seatCode: this.fb.array(this.addItem())
+    });
   }
-  ngOnInit() {
-    // console.log(this.seatCode);
+  ngOnInit() {}
+
+  createItem(i: string): FormGroup {
+    return this.fb.group({
+      seat: [i]
+    });
   }
-
-
-  get seat(): FormArray { return this.formAddTicket.get('seatCode') as FormArray; }
-
-
+  
+  addItem() {
+    const ss = [];
+    this.counter().forEach((s, i) => {
+      ss[i] =  this.createItem(s);
+    });
+    return ss;
+  }
 
   // so luong ghe
-  counter(a: number, b: number) 
-  {
-    let arrSeatCode = new Array;
-    for(let j = 65; j <= b; j++)
-      for(let i = 1; i <= a; i++)
+  counter(a: number = 10, b: number= 75) {
+    const arrSeatCode = [];
+    for (let j = 65; j < b; j++) {
+      for (let i = 1; i <= a; i++) {
         arrSeatCode.push(i + String.fromCharCode(j));
+      }
+    }
     return arrSeatCode;
   }
 
-
-
   // dat ve
-  AddTicket()
-  {
-    console.log(this.formAddTicket.value);
+  AddTicket() {
+    console.log(this.formAddTicket.value.seatCode);
   }
 
 }

@@ -18,7 +18,7 @@
     <tr class="text-center" *ngFor="let us of users; index as i">
       <th scope="row">{{i + 1}}</th>
       <td>{{us.displayName}}</td>
-      <td><img src="http://noithatquangtri.com/files/tin/15/jpg/le-thi-thu-hien.jpg" alt="" style="height: 150px;"></td>
+      <td><img src="https://serverfilm.herokuapp.com/images/{{us.avatar}}" alt="" style="height: 150px;"></td>
       <td>{{us.email}}</td>
       <td>{{us.phone}}</td>
       <td>

@@ -8,7 +8,7 @@ import { Loading, Movie , Booking} from '../type';
 })
 
 export class UserService {
-  URL = 'http://localhost:3000/';
+  URL = 'https://serverfilm.herokuapp.com/';
   constructor(private http: HttpClient, private router: Router, private store: Store<Loading>) {
   }
 

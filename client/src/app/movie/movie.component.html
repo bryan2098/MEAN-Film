@@ -16,7 +16,7 @@
         <tr class="text-center" *ngFor="let mv of movies;  index as i">
             <th scope="row">{{i + 1 }}</th>
             <td>{{mv.name }}</td>
-            <td><img src="http://localhost:3000/images/{{mv.poster}}" alt=""
+            <td><img src="https://serverfilm.herokuapp.com/images/{{mv.poster}}" alt=""
                     style="height: 150px;"></td>
             <td>{{mv.movieTime}} phút</td>
             <td>
@@ -39,7 +39,7 @@
                         </div>
                         &nbsp;
                         <div>
-                            <img src="http://localhost:3000/images/{{mv.poster}}" alt=""
+                            <img src="https://serverfilm.herokuapp.com/images/{{mv.poster}}" alt=""
                                 style=" width:300px;">
                         </div>
                         &nbsp;

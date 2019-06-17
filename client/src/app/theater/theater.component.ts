@@ -69,10 +69,7 @@ export class TheaterComponent implements OnInit {
       .then((res: any) => {
         this.message = res.code;        
         this.list();
-        
-        setTimeout(() => {
-          location.reload();
-        }, 500)
+      
       })
       .catch(err => err)
       

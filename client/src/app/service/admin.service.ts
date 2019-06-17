@@ -9,7 +9,7 @@ import { Loading, Movie , Theater, Cinema, User, Frequency, Booking, Ticket} fro
 
 export class AdminService {
   
-  URL = 'http://localhost:3000/';
+  URL = 'https://serverfilm.herokuapp.com/';
   constructor(private http: HttpClient, private router: Router, private store: Store<Loading>) {
   }
 

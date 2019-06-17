@@ -64,7 +64,6 @@ export class CinemaComponent implements OnInit {
     this.store.select('adminCinemaReducer')
     .subscribe(l => {
       this.cinemas = l;
-      console.log(this.cinemas);
     })
   }
 
